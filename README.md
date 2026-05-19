@@ -1,9 +1,9 @@
 <div align="center">
 
-# 🍕 Pizzly Back-End
+# 🍕 Pizzly — Back-end
 API REST para o sistema de pizzaria com delivery Pizzly.
 
-O back-end do Pizzly é responsável pela lógica de negócio da aplicação, gerenciamento de usuários, pedidos e comunicação com o front-end.
+O back-end do Pizzly é responsável pela lógica de negócio da aplicação, incluindo gerenciamento de usuários, pedidos, pizzas, pagamentos e comunicação com o front-end.
 
 </div>
 
@@ -11,13 +11,13 @@ O back-end do Pizzly é responsável pela lógica de negócio da aplicação, ge
 
 ## 🎯 Responsabilidades
 
-- Gerenciamento de usuários do sistema
-- Cadastro e gerenciamento de pedidos
-- Controle de pizzas e cardápio
-- Exposição de endpoints REST
-- Persistência de dados com JPA
-- Integração com banco de dados
+- Autenticação e gerenciamento de usuários
+- CRUD de pedidos, pizzas e categorias
+- Gerenciamento de endereços de entrega
+- Controle de pagamentos
 - Comunicação entre front-end e back-end
+- Persistência de dados com JPA
+- Exposição de endpoints REST
 
 ---
 
@@ -25,13 +25,13 @@ O back-end do Pizzly é responsável pela lógica de negócio da aplicação, ge
 
 | Entidade | Descrição |
 |----------|------------|
-| `Usuario` | Cliente cadastrado no sistema |
-| `Pedido` | Pedido realizado pelo cliente |
-| `Pizza` | Pizza disponível no cardápio |
-| `Categoria` | Categoria das pizzas |
-| `Endereco` | Endereço de entrega do cliente |
-| `Pagamento` | Dados de pagamento do pedido |
-| `Administrador` | Usuário responsável pelo painel administrativo |
+| `br.com.ifba.prg04pizzly.usuarios.entity.Usuario` | Cliente cadastrado no sistema |
+| `br.com.ifba.prg04pizzly.pedidos.entity.Pedido` | Pedido realizado pelo cliente |
+| `br.com.ifba.prg04pizzly.pizzas.entity.Pizza` | Pizza disponível no cardápio |
+| `br.com.ifba.prg04pizzly.categorias.entity.Categoria` | Categoria das pizzas |
+| `br.com.ifba.prg04pizzly.enderecos.entity.Endereco` | Endereço de entrega do cliente |
+| `br.com.ifba.prg04pizzly.pagamentos.entity.Pagamento` | Dados de pagamento do pedido |
+| `br.com.ifba.prg04pizzly.admin.entity.Administrador` | Usuário responsável pelo painel administrativo |
 
 ---
 
@@ -47,16 +47,26 @@ O back-end do Pizzly é responsável pela lógica de negócio da aplicação, ge
 
 ---
 
-## 🛣️ Rotas da API
+## 🛣️ Rotas previstas
+
+### 🔐 Auth
+
+| Método | Rota | Descrição |
+|--------|------|------------|
+| POST | `/auth/login` | Login do usuário |
+| POST | `/auth/cadastro` | Cadastro de novo usuário |
+
+---
 
 ### 👤 Usuários
 
 | Método | Rota | Descrição |
 |--------|------|------------|
-| GET | `/usuarios` | Lista todos os usuários |
-| POST | `/usuarios` | Cadastra um usuário |
-| PUT | `/usuarios/{id}` | Atualiza um usuário |
-| DELETE | `/usuarios/{id}` | Remove um usuário |
+| GET | `/usuarios` | Listar usuários |
+| GET | `/usuarios/{id}` | Buscar usuário por ID |
+| POST | `/usuarios` | Cadastrar usuário |
+| PUT | `/usuarios/{id}` | Atualizar usuário |
+| DELETE | `/usuarios/{id}` | Deletar usuário |
 
 ---
 
@@ -64,11 +74,11 @@ O back-end do Pizzly é responsável pela lógica de negócio da aplicação, ge
 
 | Método | Rota | Descrição |
 |--------|------|------------|
-| GET | `/pizzas` | Lista pizzas |
-| GET | `/pizzas/{id}` | Busca pizza por ID |
-| POST | `/pizzas` | Cadastra pizza |
-| PUT | `/pizzas/{id}` | Atualiza pizza |
-| DELETE | `/pizzas/{id}` | Remove pizza |
+| GET | `/pizzas` | Listar pizzas |
+| GET | `/pizzas/{id}` | Buscar pizza por ID |
+| POST | `/pizzas` | Cadastrar pizza |
+| PUT | `/pizzas/{id}` | Atualizar pizza |
+| DELETE | `/pizzas/{id}` | Deletar pizza |
 
 ---
 
@@ -76,11 +86,11 @@ O back-end do Pizzly é responsável pela lógica de negócio da aplicação, ge
 
 | Método | Rota | Descrição |
 |--------|------|------------|
-| GET | `/pedidos` | Lista pedidos |
-| GET | `/pedidos/{id}` | Busca pedido |
-| POST | `/pedidos` | Cria pedido |
-| PUT | `/pedidos/{id}` | Atualiza pedido |
-| DELETE | `/pedidos/{id}` | Cancela pedido |
+| GET | `/pedidos` | Listar pedidos |
+| GET | `/pedidos/{id}` | Buscar pedido por ID |
+| POST | `/pedidos` | Criar pedido |
+| PUT | `/pedidos/{id}` | Atualizar pedido |
+| DELETE | `/pedidos/{id}` | Cancelar pedido |
 
 ---
 
@@ -88,8 +98,8 @@ O back-end do Pizzly é responsável pela lógica de negócio da aplicação, ge
 
 | Método | Rota | Descrição |
 |--------|------|------------|
-| POST | `/pagamentos` | Realiza pagamento |
-| GET | `/pagamentos/{id}` | Consulta pagamento |
+| POST | `/pagamentos` | Realizar pagamento |
+| GET | `/pagamentos/{id}` | Consultar pagamento |
 
 ---
 
@@ -97,8 +107,8 @@ O back-end do Pizzly é responsável pela lógica de negócio da aplicação, ge
 
 | Método | Rota | Descrição |
 |--------|------|------------|
-| GET | `/enderecos` | Lista endereços |
-| POST | `/enderecos` | Cadastra endereço |
+| GET | `/enderecos` | Listar endereços |
+| POST | `/enderecos` | Cadastrar endereço |
 
 ---
 
@@ -106,9 +116,9 @@ O back-end do Pizzly é responsável pela lógica de negócio da aplicação, ge
 
 | Método | Rota | Descrição |
 |--------|------|------------|
-| GET | `/admin/pedidos` | Lista pedidos |
-| GET | `/admin/usuarios` | Lista usuários |
-| PUT | `/admin/pedidos/{id}` | Atualiza status do pedido |
+| GET | `/admin/pedidos` | Listar pedidos |
+| GET | `/admin/usuarios` | Listar usuários |
+| PUT | `/admin/pedidos/{id}` | Atualizar status do pedido |
 
 ---
 
@@ -127,7 +137,7 @@ O back-end do Pizzly é responsável pela lógica de negócio da aplicação, ge
         │                   │   ├── 📂 controller
         │                   │   │   └── 📄 UsuarioController.java
         │                   │   │
-        │                   │   ├── 📂 model
+        │                   │   ├── 📂 entity
         │                   │   │   └── 📄 Usuario.java
         │                   │   │
         │                   │   ├── 📂 repository
@@ -140,47 +150,37 @@ O back-end do Pizzly é responsável pela lógica de negócio da aplicação, ge
         │
         └── 📂 resources
             └── 📄 application.properties
-```
-
-## 🛠️ Tecnologias
-
-<p>
-  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
-  
-  <img src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" />
-  
-  <img src="https://img.shields.io/badge/Spring_Web-6DB33F?style=for-the-badge&logo=spring&logoColor=white" />
-  
-  <img src="https://img.shields.io/badge/Spring_Data_JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white" />
-  
-  <img src="https://img.shields.io/badge/H2_Database-0078D4?style=for-the-badge&logo=databricks&logoColor=white" />
-  
-  <img src="https://img.shields.io/badge/Lombok-BC4521?style=for-the-badge&logo=java&logoColor=white" />
-  
-  <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" />
-  
-  <img src="https://img.shields.io/badge/IntelliJ_IDEA-000000?style=for-the-badge&logo=intellijidea&logoColor=white" />
-</p>
-
----
-
-## 🧪 Testes da API
+🛠️ Tecnologias
+<p> <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Web-6DB33F?style=for-the-badge&logo=spring&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Data_JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white" /> <img src="https://img.shields.io/badge/H2_Database-0078D4?style=for-the-badge&logo=databricks&logoColor=white" /> <img src="https://img.shields.io/badge/Lombok-BC4521?style=for-the-badge&logo=java&logoColor=white" /> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" /> <img src="https://img.shields.io/badge/IntelliJ_IDEA-000000?style=for-the-badge&logo=intellijidea&logoColor=white" /> </p>
+🧪 Testes da API
 
 Os endpoints da aplicação foram testados utilizando:
 
 📮 Postman
 
-Testes realizados:
 
+Testes realizados
 ✅ GET
 ✅ POST
 ✅ PUT
 ✅ DELETE
 
----
 
-## 🔗 Repositório Front-End
+📚 Conceitos Aplicados
+API REST
+CRUD
+Spring Boot
+Spring Data JPA
+Banco de Dados H2
+Arquitetura em Camadas
+ResponseEntity
+Injeção de Dependência
+Persistência de Dados
+Endpoints RESTful
 
-🍕 Front-End:
 
-https://github.com/MisaelCarvalhoDutra/prg04misaelcarvalhodutra-front-end
+🔗 Repositório Front-end
+
+🍕 Pizzly Front-end
+
+https://github.com/SEU-USUARIO/prg04misaelcarvalhodutra-front-end

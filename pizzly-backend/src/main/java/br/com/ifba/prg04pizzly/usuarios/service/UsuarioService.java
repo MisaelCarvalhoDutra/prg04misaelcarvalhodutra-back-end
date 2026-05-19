@@ -1,6 +1,6 @@
 package br.com.ifba.prg04pizzly.usuarios.service;
 
-import br.com.ifba.prg04pizzly.usuarios.model.Usuario;
+import br.com.ifba.prg04pizzly.usuarios.entity.Usuario;
 import br.com.ifba.prg04pizzly.usuarios.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

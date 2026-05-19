@@ -1,4 +1,4 @@
-package br.com.ifba.prg04pizzly.usuarios.model;
+package br.com.ifba.prg04pizzly.usuarios.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
