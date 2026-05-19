@@ -16,14 +16,14 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    // cadastrar usuario
+    // cadastrar usuario - o Jackson converte automaticamente o JSON recebido em um objeto Usuario
     @PostMapping
     public ResponseEntity<Usuario> salvarUsuario(@RequestBody Usuario usuario) {
 
         Usuario novoUsuario = usuarioService.salvarUsuario(usuario);
 
-        //retorna status HTTP 200 com o usuario salvo
-        return ResponseEntity.status(201).body(novoUsuario);
+        //retorna status HTTP 201 com o usuario salvo
+        return ResponseEntity.status(201).body(novoUsuario); // o objeto Usuario é convertido automaticamente para JSON na resposta da API
     }
 
     // listar usuarios
@@ -32,8 +32,8 @@ public class UsuarioController {
 
         List<Usuario> usuarios = usuarioService.listarUsuarios();
 
-        //retorna lista de usuarios com status HTTP 200
-        return ResponseEntity.ok(usuarios);
+        //retorna lista de usuarios
+        return ResponseEntity.ok(usuarios); // os dados da lista são convertidos automaticamente para JSON pelo Jackson
     }
 
     // buscar usuario por id
