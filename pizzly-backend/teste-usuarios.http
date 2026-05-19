@@ -3,15 +3,17 @@ POST http://localhost:8080/usuarios
 Content-Type: application/json
 
 {
-  "nome": "Misael Dutra",
+  "nome": "Misael C Dutra",
   "email": "misael@gmail.com",
-  "senha": "01"
+  "senha": "03"
 }
 
 
 ### Listar usuários
 GET http://localhost:8080/usuarios
 
+### Buscar usuário por ID
+GET http://localhost:8080/usuarios/2
 
 ### Atualizar usuário
 PUT http://localhost:8080/usuarios/4

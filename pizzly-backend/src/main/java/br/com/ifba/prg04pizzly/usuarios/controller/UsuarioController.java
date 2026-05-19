@@ -23,7 +23,7 @@ public class UsuarioController {
         Usuario novoUsuario = usuarioService.salvarUsuario(usuario);
 
         //retorna status HTTP 200 com o usuario salvo
-        return ResponseEntity.ok(novoUsuario);
+        return ResponseEntity.status(201).body(novoUsuario);
     }
 
     // listar usuarios
@@ -34,6 +34,15 @@ public class UsuarioController {
 
         //retorna lista de usuarios com status HTTP 200
         return ResponseEntity.ok(usuarios);
+    }
+
+    // buscar usuario por id
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> buscarUsuarioPorId(@PathVariable Long id) {
+
+        Usuario usuario = usuarioService.buscarUsuarioPorId(id);
+
+        return ResponseEntity.ok(usuario);
     }
 
     // atualizar usuario
