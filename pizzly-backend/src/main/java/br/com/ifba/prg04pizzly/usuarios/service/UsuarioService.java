@@ -14,6 +14,7 @@ import br.com.ifba.prg04pizzly.usuarios.dto.UsuarioResponseDTO;
 import java.util.List;
 
 import br.com.ifba.prg04pizzly.infrastructure.exceptions.ResourceNotFoundException;
+import br.com.ifba.prg04pizzly.infrastructure.exceptions.BusinessException;
 
 // Recebe UsuarioRequestDTO e retorna UsuarioResponseDTO
 
@@ -38,8 +39,12 @@ public class UsuarioService implements UsuarioIService{
     public UsuarioResponseDTO save(UsuarioRequestDTO usuarioDTO) {
 
         if (usuarioDTO == null) {
-            throw new RuntimeException(
+            throw new BusinessException(
                     "Dados do usuário não preenchidos");
+        }
+
+        if (usuarioRepository.existsByEmail(usuarioDTO.getEmail())) {
+            throw new BusinessException("Email já cadastrado");
         }
 
         log.info("Salvando usuário");

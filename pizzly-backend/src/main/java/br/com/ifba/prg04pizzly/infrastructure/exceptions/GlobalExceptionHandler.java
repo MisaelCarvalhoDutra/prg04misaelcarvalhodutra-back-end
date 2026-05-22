@@ -5,19 +5,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-// Handler global de exceções
-// aqui centraliza o tratamento de exceções lançadas na aplicação
+//tratamento global de exceções da aplicação
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // trata exceções do tipo ResourceNotFoundException
+    //tratamento para recurso não encontrado
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<String> handleResourceNotFoundException(
             ResourceNotFoundException ex) {
 
-        //e aqui retorna status 404 e a mensagem da exceção
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
+                .body(ex.getMessage());
+    }
+
+    //tratamento para regras de negócio
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<String> handleBusinessException(
+            BusinessException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
                 .body(ex.getMessage());
     }
 }
