@@ -3,9 +3,9 @@ POST http://localhost:8080/usuarios
 Content-Type: application/json
 
 {
-  "nome": "Misael C Dutra",
+  "nome": "Misael Dutra",
   "email": "misael@gmail.com",
-  "senha": "02"
+  "senha": "1235"
 }
 
 
@@ -13,18 +13,18 @@ Content-Type: application/json
 GET http://localhost:8080/usuarios
 
 ### Buscar usuário por ID
-GET http://localhost:8080/usuarios/2
+GET http://localhost:8080/usuarios/33
 
 ### Atualizar usuário
-PUT http://localhost:8080/usuarios/4
+PUT http://localhost:8080/usuarios/1
 Content-Type: application/json
 
 {
-  "nome": "Misael",
+  "nome": "Jonatas",
   "email": "jonatasnovo@email.com",
-  "senha": "4"
+  "senha": "4321"
 }
 
 
 ### Deletar usuário
-DELETE http://localhost:8080/usuarios/2
+DELETE http://localhost:8080/usuarios/1

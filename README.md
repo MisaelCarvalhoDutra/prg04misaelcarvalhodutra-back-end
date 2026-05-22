@@ -18,6 +18,8 @@ O back-end do Pizzly é responsável pela lógica de negócio da aplicação, in
 - Comunicação entre front-end e back-end
 - Persistência de dados com JPA
 - Exposição de endpoints REST
+- Mapeamento entre DTOs e entidades (ModelMapper)
+- Tratamento centralizado de exceções (GlobalExceptionHandler)
 
 ---
 
@@ -60,13 +62,14 @@ O back-end do Pizzly é responsável pela lógica de negócio da aplicação, in
 
 ### 👤 Usuários
 
-| Método | Rota | Descrição |
-|--------|------|------------|
-| GET | `/usuarios` | Listar usuários |
-| GET | `/usuarios/{id}` | Buscar usuário por ID |
-| POST | `/usuarios` | Cadastrar usuário |
-| PUT | `/usuarios/{id}` | Atualizar usuário |
-| DELETE | `/usuarios/{id}` | Deletar usuário |
+| Método | Rota             | Descrição                                      |
+| ------ | ---------------- | ---------------------------------------------- |
+| GET    | `/usuarios`      | Listar usuários                                |
+| GET    | `/usuarios/{id}` | Buscar usuário por ID                          |
+| POST   | `/usuarios`      | Cadastrar usuário (recebe `UsuarioRequestDTO`) |
+| PUT    | `/usuarios/{id}` | Atualizar usuário (recebe `UsuarioRequestDTO`) |
+| DELETE | `/usuarios/{id}` | Deletar usuário                                |
+
 
 ---
 
@@ -129,30 +132,39 @@ O back-end do Pizzly é responsável pela lógica de negócio da aplicação, in
 └── 📂 src
     └── 📂 main
         ├── 📂 java
-        │   └── 📂 br
-        │       └── 📂 com
-        │           └── 📂 ifba
-        │               └── 📂 prg04pizzly
-        │                   ├── 📂 usuarios
-        │                   │   ├── 📂 controller
-        │                   │   │   └── 📄 UsuarioController.java
-        │                   │   │
-        │                   │   ├── 📂 entity
-        │                   │   │   └── 📄 Usuario.java
-        │                   │   │
-        │                   │   ├── 📂 repository
-        │                   │   │   └── 📄 UsuarioRepository.java
-        │                   │   │
-        │                   │   └── 📂 service
-        │                   │       └── 📄 UsuarioService.java
-        │                   │
-        │                   └── 📄 Prg04PizzlyApplication.java
-        │
+        │   └── 📂 br/com/ifba/prg04pizzly
+        │       ├── 📂 usuarios
+        │       │   ├── 📂 controller
+        │       │   │   ├── 📄 UsuarioController.java
+        │       │   │   └── 📄 UsuarioIController.java
+        │       │   ├── 📂 entity
+        │       │   │   └── 📄 Usuario.java
+        │       │   ├── 📂 repository
+        │       │   │   └── 📄 UsuarioRepository.java
+        │       │   ├── 📂 service
+        │       │   │   ├── 📄 UsuarioService.java
+        │       │   │   └── 📄 UsuarioIService.java
+        │       │   └── 📂 dto
+        │       │       ├── 📄 UsuarioRequestDTO.java
+        │       │       └── 📄 UsuarioResponseDTO.java
+        │       └── 📂 infrastructure
+        │           └── 📂 mapper
+        │               └── 📄 ObjectMapperUtil.java
+        │           └── 📂 exceptions
+        │               ├── 📄 GlobalExceptionHandler.java
+        │               └── 📄 ResourceNotFoundException.java
         └── 📂 resources
             └── 📄 application.properties
+            
+```
+            
+
+            
+            
 🛠️ Tecnologias
-<p> <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Web-6DB33F?style=for-the-badge&logo=spring&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Data_JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white" /> <img src="https://img.shields.io/badge/H2_Database-0078D4?style=for-the-badge&logo=databricks&logoColor=white" /> <img src="https://img.shields.io/badge/Lombok-BC4521?style=for-the-badge&logo=java&logoColor=white" /> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" /> <img src="https://img.shields.io/badge/IntelliJ_IDEA-000000?style=for-the-badge&logo=intellijidea&logoColor=white" /> </p>
-🧪 Testes da API
+<p> <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Web-6DB33F?style=for-the-badge&logo=spring&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Data_JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white" /> <img src="https://img.shields.io/badge/ModelMapper-6DB33F?style=for-the-badge&logoColor=white" /> <img src="https://img.shields.io/badge/H2_Database-0078D4?style=for-the-badge&logo=databricks&logoColor=white" /> <img src="https://img.shields.io/badge/Lombok-BC4521?style=for-the-badge&logo=java&logoColor=white" /> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" /> <img src="https://img.shields.io/badge/IntelliJ_IDEA-000000?style=for-the-badge&logo=intellijidea&logoColor=white" /> </p>
+
+🧪 Testes da API:
 
 Os endpoints da aplicação foram testados utilizando:
 
@@ -177,10 +189,12 @@ ResponseEntity
 Injeção de Dependência
 Persistência de Dados
 Endpoints RESTful
+Arquitetura em Camadas
+DTO Pattern
 
 
 🔗 Repositório Front-end
 
-🍕 Pizzly Front-end
+🍕 Pizzly Front-end:
 
-https://github.com/SEU-USUARIO/prg04misaelcarvalhodutra-front-end
+https://github.com/MisaelCarvalhoDutra/prg04misaelcarvalhodutra-front-end
