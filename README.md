@@ -150,9 +150,10 @@ O back-end do Pizzly é responsável pela lógica de negócio da aplicação, in
         │       └── 📂 infrastructure
         │           └── 📂 mapper
         │               └── 📄 ObjectMapperUtil.java
-        │           └── 📂 exceptions
-        │               ├── 📄 GlobalExceptionHandler.java
-        │               └── 📄 ResourceNotFoundException.java
+                    └── 📂 exceptions
+│                       ├── 📄 GlobalExceptionHandler.java
+│                       ├── 📄 ResourceNotFoundException.java
+│                       └── 📄 BusinessException.java
         └── 📂 resources
             └── 📄 application.properties
             
@@ -161,10 +162,10 @@ O back-end do Pizzly é responsável pela lógica de negócio da aplicação, in
 
             
             
-🛠️ Tecnologias
+## 🛠️ Tecnologias
 <p> <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Web-6DB33F?style=for-the-badge&logo=spring&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Data_JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white" /> <img src="https://img.shields.io/badge/ModelMapper-6DB33F?style=for-the-badge&logoColor=white" /> <img src="https://img.shields.io/badge/H2_Database-0078D4?style=for-the-badge&logo=databricks&logoColor=white" /> <img src="https://img.shields.io/badge/Lombok-BC4521?style=for-the-badge&logo=java&logoColor=white" /> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" /> <img src="https://img.shields.io/badge/IntelliJ_IDEA-000000?style=for-the-badge&logo=intellijidea&logoColor=white" /> </p>
 
-🧪 Testes da API:
+## 🧪 Testes da API:
 
 Os endpoints da aplicação foram testados utilizando:
 
@@ -178,19 +179,22 @@ Testes realizados
 ✅ DELETE
 
 
-📚 Conceitos Aplicados
-API REST
-CRUD
-Spring Boot
-Spring Data JPA
-Banco de Dados H2
-Arquitetura em Camadas
-ResponseEntity
-Injeção de Dependência
-Persistência de Dados
-Endpoints RESTful
-Arquitetura em Camadas
-DTO Pattern
+## 📚 Conceitos Aplicados
+- API REST
+- CRUD
+- Spring Boot
+- Spring Data JPA
+- Banco de Dados H2
+- Arquitetura em Camadas
+- ResponseEntity
+- Injeção de Dependência
+- Persistência de Dados
+- Endpoints RESTful
+- Arquitetura em Camadas
+- DTO
+- Validation API
+- Tratamento Global de Exceções
+- ModelMapper
 
 
 🔗 Repositório Front-end

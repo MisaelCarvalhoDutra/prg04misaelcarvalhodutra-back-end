@@ -3,9 +3,9 @@ package br.com.ifba.prg04pizzly.usuarios.controller;
 import br.com.ifba.prg04pizzly.usuarios.dto.UsuarioRequestDTO;
 import br.com.ifba.prg04pizzly.usuarios.dto.UsuarioResponseDTO;
 
-import br.com.ifba.prg04pizzly.usuarios.entity.Usuario;
 import br.com.ifba.prg04pizzly.usuarios.service.UsuarioIService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,7 @@ public class UsuarioController implements UsuarioIController {
     // cadastrar usuario - o Jackson converte automaticamente o JSON recebido em um objeto Usuario
     @Override
     @PostMapping
-    public ResponseEntity<UsuarioResponseDTO> save(@RequestBody UsuarioRequestDTO usuarioDTO) {
+    public ResponseEntity<UsuarioResponseDTO> save(@Valid @RequestBody UsuarioRequestDTO usuarioDTO) {
 
         UsuarioResponseDTO novoUsuario = usuarioService.save(usuarioDTO);
 
@@ -57,9 +57,7 @@ public class UsuarioController implements UsuarioIController {
     // atualizar usuario
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioResponseDTO> update(
-            @PathVariable Long id,
-            @RequestBody UsuarioRequestDTO usuarioDTO) {
+    public ResponseEntity<UsuarioResponseDTO> update(@PathVariable Long id,@Valid @RequestBody UsuarioRequestDTO usuarioDTO) {
 
         UsuarioResponseDTO usuarioAtualizado = usuarioService.update(id, usuarioDTO);
 

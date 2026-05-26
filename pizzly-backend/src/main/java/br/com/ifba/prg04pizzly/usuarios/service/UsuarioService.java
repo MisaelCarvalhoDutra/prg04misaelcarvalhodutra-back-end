@@ -15,12 +15,14 @@ import java.util.List;
 
 import br.com.ifba.prg04pizzly.infrastructure.exceptions.ResourceNotFoundException;
 import br.com.ifba.prg04pizzly.infrastructure.exceptions.BusinessException;
+import org.springframework.transaction.annotation.Transactional;
+
 
 // Recebe UsuarioRequestDTO e retorna UsuarioResponseDTO
 
-// Implementação do serviço de usuário
-// Converte entre DTOs e entidades usando ModelMapper
-// Implementa as regras de negócio e tratamento de exceções
+// Implementação das regras de negócio de usuário
+// Realiza conversão entre DTOs e entidades usando ModelMapper
+// Implementa tratamento de exceções e validações
 @Service //define a classe como camada de serviço
 @RequiredArgsConstructor
 public class UsuarioService implements UsuarioIService{
@@ -36,6 +38,7 @@ public class UsuarioService implements UsuarioIService{
 
     //salva os usuarios no banco de dados
     @Override
+    @Transactional
     public UsuarioResponseDTO save(UsuarioRequestDTO usuarioDTO) {
 
         if (usuarioDTO == null) {
@@ -83,6 +86,7 @@ public class UsuarioService implements UsuarioIService{
 
     // atualizar usuario pelo id
     @Override
+    @Transactional
     public UsuarioResponseDTO update(Long id, UsuarioRequestDTO usuarioDTO) {
 
         Usuario usuarioExistente = usuarioRepository.findById(id)
@@ -101,6 +105,7 @@ public class UsuarioService implements UsuarioIService{
 
     // deletar usuario pelo id
     @Override
+    @Transactional
     public void delete(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));

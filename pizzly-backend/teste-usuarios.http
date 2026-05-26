@@ -5,7 +5,7 @@ Content-Type: application/json
 {
   "nome": "Misael Dutra",
   "email": "misael@gmail.com",
-  "senha": "1235"
+  "senha": "123599"
 }
 
 
@@ -13,11 +13,15 @@ Content-Type: application/json
 GET http://localhost:8080/usuarios
 
 ### Buscar usuário por ID
-GET http://localhost:8080/usuarios/33
+GET http://localhost:8080/usuarios/1
+
+### Buscar usuário inexistente
+GET http://localhost:8080/usuarios/999
 
 ### Atualizar usuário
 PUT http://localhost:8080/usuarios/1
 Content-Type: application/json
+
 
 {
   "nome": "Jonatas",
@@ -25,6 +29,25 @@ Content-Type: application/json
   "senha": "4321"
 }
 
-
 ### Deletar usuário
 DELETE http://localhost:8080/usuarios/1
+
+### Teste validação
+POST http://localhost:8080/usuarios
+Content-Type: application/json
+
+{
+  "nome": "",
+  "email": "misael",
+  "senha": ""
+}
+
+### Teste email duplicado
+POST http://localhost:8080/usuarios
+Content-Type: application/json
+
+{
+  "nome": "Carlos",
+  "email": "misael@gmail.com",
+  "senha": "123456"
+}
