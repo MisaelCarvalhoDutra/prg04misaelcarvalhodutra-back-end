@@ -10,7 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import br.com.ifba.prg04pizzly.client.client.ViaCepClient;
+
 
 // Controller responsável pelos endpoints de usuário
 // Recebe DTOs das requisições e retorna DTOs nas respostas
@@ -21,6 +25,10 @@ public class UsuarioController implements UsuarioIController {
 
     //injeção de dependência do service
     private final UsuarioIService usuarioService;
+
+    //injeção de dependencia do client
+    private final ViaCepClient viaCepClient;
+
 
     // cadastrar usuario - o Jackson converte automaticamente o JSON recebido em um objeto Usuario
     @Override
@@ -33,15 +41,27 @@ public class UsuarioController implements UsuarioIController {
         return ResponseEntity.status(201).body(novoUsuario); // o objeto Usuario é convertido automaticamente para JSON na resposta da API
     }
 
-    // listar usuarios
+    //lista usuários utilizando paginação
     @Override
     @GetMapping
-    public ResponseEntity<List<UsuarioResponseDTO>> findAll() {
+    public ResponseEntity<Page<UsuarioResponseDTO>> findAll(Pageable pageable) {
 
-        List<UsuarioResponseDTO> usuarios = usuarioService.findAll();
+        //recebe lista paginada de usuários do service
+        Page<UsuarioResponseDTO> usuarios =
+                usuarioService.findAll(pageable);
 
-        //retorna lista de usuarios
-        return ResponseEntity.ok(usuarios); // os dados da lista são convertidos automaticamente para JSON pelo Jackson
+        //retorna lista paginada de usuarios
+        return ResponseEntity.ok(usuarios);
+    }
+
+    // endpoint utilizado pelo WebClient
+    @GetMapping("/findall")
+    public ResponseEntity<Page<UsuarioResponseDTO>> findAllWebClient(
+            Pageable pageable) {
+
+        return ResponseEntity.ok(
+                usuarioService.findAll(pageable)
+        );
     }
 
     // buscar usuario por id
@@ -74,5 +94,14 @@ public class UsuarioController implements UsuarioIController {
 
         //retorna status HTTP 204 sem conteúdo
         return ResponseEntity.noContent().build();
+    }
+
+    // endpoint responsável por consumir API externa ViaCEP
+    @GetMapping("/cep/{cep}")
+    public ResponseEntity<String> buscarCep(@PathVariable String cep) {
+
+        return ResponseEntity.ok(
+                viaCepClient.buscarCep(cep)
+        );
     }
 }

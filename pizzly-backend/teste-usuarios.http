@@ -1,13 +1,42 @@
-### Cadastrar usuário
+### Cadastrar usuário 1
 POST http://localhost:8080/usuarios
 Content-Type: application/json
 
 {
   "nome": "Misael Dutra",
   "email": "misael@gmail.com",
-  "senha": "123599"
+  "senha": "123213"
 }
 
+### Cadastrar usuário 2
+POST http://localhost:8080/usuarios
+Content-Type: application/json
+
+{
+  "nome": "Misael ",
+  "email": "m@gmail.com",
+  "senha": "162738"
+}
+
+### Cadastrar usuário 3
+POST http://localhost:8080/usuarios
+Content-Type: application/json
+
+{
+  "nome": "Dutra",
+  "email": "misa@gmail.com",
+  "senha": "120003"
+}
+
+### Cadastrar usuário 4
+POST http://localhost:8080/usuarios
+Content-Type: application/json
+
+{
+  "nome": "M Dutra",
+  "email": "mis@gmail.com",
+  "senha": "123230"
+}
 
 ### Listar usuários
 GET http://localhost:8080/usuarios
@@ -17,6 +46,16 @@ GET http://localhost:8080/usuarios/1
 
 ### Buscar usuário inexistente
 GET http://localhost:8080/usuarios/999
+
+### Listar usuários com paginação - página 0
+GET http://localhost:8080/usuarios?page=0&size=3
+
+### Listar usuários com paginação - pagina 1
+GET http://localhost:8080/usuarios?page=1&size=3
+
+### Listar usuários ordenados por nome
+GET http://localhost:8080/usuarios?page=0&size=5&sort=nome,asc
+
 
 ### Atualizar usuário
 PUT http://localhost:8080/usuarios/1
@@ -51,3 +90,6 @@ Content-Type: application/json
   "email": "misael@gmail.com",
   "senha": "123456"
 }
+
+### busca o CEP
+GET http://localhost:8080/cep/01001-000

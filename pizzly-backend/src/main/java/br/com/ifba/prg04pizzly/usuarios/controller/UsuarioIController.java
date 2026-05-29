@@ -5,7 +5,8 @@ import br.com.ifba.prg04pizzly.usuarios.dto.UsuarioResponseDTO;
 
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 //Agora recebe: UsuarioRequestDTO
 //porque é o dado vindo da requisição.
@@ -21,8 +22,8 @@ public interface UsuarioIController {
     ResponseEntity<UsuarioResponseDTO> save(
             UsuarioRequestDTO usuarioDTO);
 
-    // listar todos os usuários
-    ResponseEntity<List<UsuarioResponseDTO>> findAll();
+    //lista usuários com paginação
+    ResponseEntity<Page<UsuarioResponseDTO>> findAll(Pageable pageable);
 
     // buscar usuário pelo id
     ResponseEntity<UsuarioResponseDTO> findById(Long id);

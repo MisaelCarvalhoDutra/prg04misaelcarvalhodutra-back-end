@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
 import br.com.ifba.prg04pizzly.usuarios.dto.UsuarioRequestDTO;
 import br.com.ifba.prg04pizzly.usuarios.dto.UsuarioResponseDTO;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import br.com.ifba.prg04pizzly.infrastructure.exceptions.ResourceNotFoundException;
 import br.com.ifba.prg04pizzly.infrastructure.exceptions.BusinessException;
@@ -61,16 +62,16 @@ public class UsuarioService implements UsuarioIService{
         return modelMapper.map(salvo, UsuarioResponseDTO.class);
     }
 
-    //listar todos os usuarios cadastrados
+    //lista usuários utilizando paginação do Spring Data
     @Override
-    public List<UsuarioResponseDTO> findAll() {
+    public Page<UsuarioResponseDTO> findAll(Pageable pageable){
 
         log.info("Listando usuários");
 
-        return usuarioRepository.findAll()
-                .stream()
-                .map(usuario -> modelMapper.map(usuario, UsuarioResponseDTO.class))
-                .toList();
+        //busca usuários paginados e converte Entity para DTO
+        return usuarioRepository.findAll(pageable)
+                .map(usuario ->
+                        modelMapper.map(usuario, UsuarioResponseDTO.class));
     }
 
     // buscar usuario pelo id
