@@ -163,7 +163,7 @@ O back-end do Pizzly é responsável pela lógica de negócio da aplicação, in
             
             
 ## 🛠️ Tecnologias
-<p> <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Web-6DB33F?style=for-the-badge&logo=spring&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Data_JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white" /> <img src="https://img.shields.io/badge/ModelMapper-6DB33F?style=for-the-badge&logoColor=white" /> <img src="https://img.shields.io/badge/H2_Database-0078D4?style=for-the-badge&logo=databricks&logoColor=white" /> <img src="https://img.shields.io/badge/Lombok-BC4521?style=for-the-badge&logo=java&logoColor=white" /> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" /> <img src="https://img.shields.io/badge/IntelliJ_IDEA-000000?style=for-the-badge&logo=intellijidea&logoColor=white" /> </p>
+<p> <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Web-6DB33F?style=for-the-badge&logo=spring&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_Data_JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white" /> <img src="https://img.shields.io/badge/ModelMapper-6DB33F?style=for-the-badge&logoColor=white" /> <img src="https://img.shields.io/badge/H2_Database-0078D4?style=for-the-badge&logo=databricks&logoColor=white" /> <img src="https://img.shields.io/badge/Lombok-BC4521?style=for-the-badge&logo=java&logoColor=white" /> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" /> <img src="https://img.shields.io/badge/IntelliJ_IDEA-000000?style=for-the-badge&logo=intellijidea&logoColor=white" /> <img src="https://img.shields.io/badge/Spring_WebFlux-6DB33F?style=for-the-badge&logo=spring&logoColor=white" /> </p>
 
 ## 🧪 Testes da API:
 
@@ -195,6 +195,7 @@ Testes realizados
 - Validation API
 - Tratamento Global de Exceções
 - ModelMapper
+- Integração HTTP com WebClient
 
 
 🔗 Repositório Front-end
