@@ -1,0 +1,71 @@
+
+### Listar clientes
+GET http://localhost:8080/clientes
+
+### Listar pedidos
+GET http://localhost:8080/pedidos
+
+### Cadastrar avaliação
+POST http://localhost:8080/avaliacoes
+Content-Type: application/json
+
+{
+  "nota": 5,
+  "comentario": "Pizza muito boa e entrega rápida.",
+  "clienteId": 1,
+  "pedidoId": 1
+}
+
+### Listar avaliações
+GET http://localhost:8080/avaliacoes
+
+### Listar avaliações com paginação
+GET http://localhost:8080/avaliacoes?page=0&size=5&sort=dataAvaliacao,desc
+
+### Buscar avaliação por ID
+GET http://localhost:8080/avaliacoes/1
+
+### Buscar avaliações de um cliente
+GET http://localhost:8080/avaliacoes/cliente/1
+
+###
+GET http://localhost:8080/avaliacoes/pedido/9
+
+### Atualizar avaliação
+PUT http://localhost:8080/avaliacoes/1
+Content-Type: application/json
+
+{
+  "nota": 4,
+  "comentario": "Pizza boa, mas demorou um pouco.",
+  "clienteId": 1,
+  "pedidoId": 1
+}
+
+### Teste validação
+POST http://localhost:8080/avaliacoes
+Content-Type: application/json
+
+{
+  "nota": 6,
+  "comentario": "Nota inválida",
+  "clienteId": null,
+  "pedidoId": null
+}
+
+### Teste pedido já avaliado
+POST http://localhost:8080/avaliacoes
+Content-Type: application/json
+
+{
+  "nota": 5,
+  "comentario": "Tentando avaliar o mesmo pedido novamente.",
+  "clienteId": 1,
+  "pedidoId": 1
+}
+
+### Buscar avaliação inexistente
+GET http://localhost:8080/avaliacoes/999
+
+### Deletar avaliação
+DELETE http://localhost:8080/avaliacoes/1

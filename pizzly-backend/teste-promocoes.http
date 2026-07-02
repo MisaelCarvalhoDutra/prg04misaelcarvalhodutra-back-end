@@ -1,0 +1,88 @@
+
+### Listar produtos
+GET http://localhost:8080/produtos
+
+### Cadastrar promoção 1
+POST http://localhost:8080/promocoes
+Content-Type: application/json
+
+{
+  "titulo": "Combo Família",
+  "descricao": "Promoção especial com pizzas selecionadas",
+  "precoPromocional": 79.90,
+  "dataInicio": "2026-06-13",
+  "dataFim": "2026-06-30",
+  "ativa": true,
+  "produtosIds": [1, 2]
+}
+
+### Cadastrar promoção 2
+POST http://localhost:8080/promocoes
+Content-Type: application/json
+
+{
+  "titulo": "Promoção Calabresa",
+  "descricao": "Pizza calabresa com preço especial",
+  "precoPromocional": 39.90,
+  "dataInicio": "2026-06-13",
+  "dataFim": "2026-06-20",
+  "ativa": true,
+  "produtosIds": [1]
+}
+
+### Listar promoções
+GET http://localhost:8080/promocoes
+
+### Listar promoções com paginação
+GET http://localhost:8080/promocoes?page=0&size=5&sort=titulo,asc
+
+### Buscar promoção por ID
+GET http://localhost:8080/promocoes/1
+
+### Atualizar promoção
+PUT http://localhost:8080/promocoes/1
+Content-Type: application/json
+
+{
+  "titulo": "Combo Família Especial",
+  "descricao": "Promoção atualizada com pizzas selecionadas",
+  "precoPromocional": 84.90,
+  "dataInicio": "2026-06-13",
+  "dataFim": "2026-07-05",
+  "ativa": true,
+  "produtosIds": [1, 2]
+}
+
+### Teste validação
+POST http://localhost:8080/promocoes
+Content-Type: application/json
+
+{
+  "titulo": "",
+  "descricao": "Promoção inválida",
+  "precoPromocional": null,
+  "dataInicio": null,
+  "dataFim": null,
+  "ativa": true,
+  "produtosIds": []
+}
+
+### Teste título duplicado
+POST http://localhost:8080/promocoes
+Content-Type: application/json
+
+{
+  "titulo": "Combo Família Especial",
+  "descricao": "Promoção repetida",
+  "precoPromocional": 35.90,
+  "dataInicio": "2026-06-13",
+  "dataFim": "2026-06-20",
+  "ativa": true,
+  "produtosIds": [1]
+}
+
+### Buscar promoção inexistente
+GET http://localhost:8080/promocoes/999
+
+### Deletar promoção
+DELETE http://localhost:8080/promocoes/3

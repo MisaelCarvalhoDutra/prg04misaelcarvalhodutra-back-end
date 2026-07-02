@@ -1,0 +1,100 @@
+### Cadastrar cliente antes de testar pedido
+POST http://localhost:8080/clientes
+Content-Type: application/json
+
+{
+  "nome": "Misael Dutra",
+  "email": "misael@gmail.com",
+  "telefone": "(74) 99999-9999",
+  "senha": "12345678",
+  "cpf": "12345678900"
+}
+
+### Cadastrar pedido 1
+POST http://localhost:8080/pedidos
+Content-Type: application/json
+
+{
+  "subtotal": 68.80,
+  "taxaEntrega": 5.00,
+  "observacao": "Sem cebola",
+  "clienteId": 1
+}
+
+### Cadastrar pedido 2
+POST http://localhost:8080/pedidos
+Content-Type: application/json
+
+{
+  "subtotal": 49.90,
+  "taxaEntrega": 0.00,
+  "observacao": "Retirada no balcão",
+  "clienteId": 1
+}
+
+###
+POST http://localhost:8080/pedidos
+Content-Type: application/json
+
+{
+"subtotal": 39.90,
+"taxaEntrega": 6.00,
+"observacao": "Teste com endereço",
+"formaRecebimento": "entrega",
+"enderecoId": 1,
+"clienteId": 5
+}
+
+### Listar pedidos
+GET http://localhost:8080/pedidos
+
+### Listar pedidos com paginação
+GET http://localhost:8080/pedidos?page=0&size=5&sort=dataPedido,desc
+
+### Buscar pedido por ID
+GET http://localhost:8080/pedidos/1
+
+### Buscar pedidos de um cliente
+GET http://localhost:8080/pedidos/cliente/1
+
+### Atualizar status do pedido
+PATCH http://localhost:8080/pedidos/1/status?status=PREPARANDO
+
+### Atualizar pedido
+PUT http://localhost:8080/pedidos/1
+Content-Type: application/json
+
+{
+  "subtotal": 75.80,
+  "taxaEntrega": 5.00,
+  "observacao": "Adicionar borda recheada",
+  "clienteId": 1
+}
+
+### atualizar pedido 2
+PUT http://localhost:8080/pedidos/2
+Content-Type: application/json
+
+{
+"subtotal": 75.80,
+"taxaEntrega": 5.00,
+"observacao": "Sem cebola",
+"clienteId": 1
+}
+
+### Teste validação
+POST http://localhost:8080/pedidos
+Content-Type: application/json
+
+{
+  "subtotal": null,
+  "taxaEntrega": null,
+  "observacao": "Pedido inválido",
+  "clienteId": null
+}
+
+### Buscar pedido inexistente
+GET http://localhost:8080/pedidos/999
+
+### Deletar pedido
+DELETE http://localhost:8080/pedidos/1

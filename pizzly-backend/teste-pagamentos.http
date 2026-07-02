@@ -1,0 +1,86 @@
+
+### Listar pedidos
+GET http://localhost:8080/pedidos
+
+### Cadastrar pagamento PIX
+POST http://localhost:8080/pagamentos
+Content-Type: application/json
+
+{
+  "formaPagamento": "PIX",
+  "valorTroco": 0,
+  "pedidoId": 1
+}
+
+### Cadastrar pagamento Dinheiro
+POST http://localhost:8080/pagamentos
+Content-Type: application/json
+
+{
+  "formaPagamento": "DINHEIRO",
+  "valorTroco": 20.00,
+  "pedidoId": 2
+}
+
+### Listar pagamentos
+GET http://localhost:8080/pagamentos
+
+### Listar pagamentos com paginação
+GET http://localhost:8080/pagamentos?page=0&size=5&sort=id,asc
+
+### Buscar pagamento por ID
+GET http://localhost:8080/pagamentos/1
+
+### Buscar pagamento por Pedido
+GET http://localhost:8080/pagamentos/pedido/1
+
+### Atualizar pagamento
+PUT http://localhost:8080/pagamentos/1
+Content-Type: application/json
+
+{
+  "formaPagamento": "CARTAO_CREDITO",
+  "valorTroco": 0,
+  "pedidoId": 1
+}
+
+### Atualizar status para PAGO
+PATCH http://localhost:8080/pagamentos/1/status?statusPagamento=PAGO
+
+### Atualizar status para CANCELADO
+PATCH http://localhost:8080/pagamentos/1/status?statusPagamento=CANCELADO
+
+### Teste validação
+POST http://localhost:8080/pagamentos
+Content-Type: application/json
+
+{
+  "formaPagamento": null,
+  "pedidoId": null
+}
+
+### Teste pedido inexistente
+POST http://localhost:8080/pagamentos
+Content-Type: application/json
+
+{
+  "formaPagamento": "PIX",
+  "valorTroco": 0,
+  "pedidoId": 999
+}
+
+### Teste pagamento duplicado para o mesmo pedido
+POST http://localhost:8080/pagamentos
+Content-Type: application/json
+
+{
+  "formaPagamento": "PIX",
+  "valorTroco": 0,
+  "pedidoId": 1
+}
+
+### Buscar pagamento inexistente
+GET http://localhost:8080/pagamentos/999
+
+### Deletar pagamento
+DELETE http://localhost:8080/pagamentos/1

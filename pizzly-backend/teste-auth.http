@@ -1,0 +1,46 @@
+GET http://localhost:8080/clientes
+
+###
+GET http://localhost:8080/funcionarios
+
+### LOGIN CLIENTE
+
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "misaeldutra@gmail.com",
+  "senha": "misael1234"
+}
+
+
+### LOGIN FUNCIONÁRIO
+
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "carlos@pizzly.com",
+  "senha": "12345678"
+}
+
+###
+PUT http://localhost:8080/clientes/5
+Content-Type: application/json
+
+{
+  "nome": "Misael Dutra",
+  "email": "misaeldutra@gmail.com",
+  "telefone": "(74) 99999-9999",
+  "cpf": ""
+}
+
+###
+PUT http://localhost:8080/funcionarios/4
+Content-Type: application/json
+
+{
+"nome": "Carlos Almeida",
+"email": "carlos@pizzly.com",
+"telefone": "(74) 99987-2877"
+}

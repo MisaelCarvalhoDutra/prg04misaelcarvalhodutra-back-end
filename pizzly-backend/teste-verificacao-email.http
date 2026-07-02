@@ -1,0 +1,41 @@
+### Enviar código para cadastro
+POST http://localhost:8080/verificacao-email/cadastro/enviar
+Content-Type: application/json
+
+{
+  "email": "20242ireads0004@ifba.edu.br"
+}
+
+### Validar código e criar cliente
+POST http://localhost:8080/verificacao-email/cadastro/validar
+Content-Type: application/json
+
+{
+  "email": "20242ireads0004@ifba.edu.br",
+  "codigo": "755565",
+  "cliente": {
+    "nome": "Cliente Teste Email",
+    "email": "20242ireads0004@ifba.edu.br",
+    "senha": "12345678",
+    "telefone": "",
+    "cpf": ""
+  }
+}
+
+### Enviar código para recuperação de senha
+POST http://localhost:8080/verificacao-email/senha/enviar
+Content-Type: application/json
+
+{
+  "email": "20242ireads0004@ifba.edu.br"
+}
+
+### Redefinir senha com código
+POST http://localhost:8080/verificacao-email/senha/redefinir
+Content-Type: application/json
+
+{
+  "email": "20242ireads0004@ifba.edu.br",
+  "codigo": "712365",
+  "novaSenha": "novaSenha123"
+}

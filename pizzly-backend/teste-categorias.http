@@ -1,0 +1,59 @@
+### Cadastrar categoria 1
+POST http://localhost:8080/categorias
+Content-Type: application/json
+
+{
+  "nome": "Pizzas",
+  "descricao": "Pizzas tradicionais e especiais"
+}
+
+### Cadastrar categoria 2
+POST http://localhost:8080/categorias
+Content-Type: application/json
+
+{
+  "nome": "Bebidas",
+  "descricao": "Refrigerantes, sucos e outras bebidas"
+}
+
+### Listar categorias
+GET http://localhost:8080/categorias
+
+### Listar categorias com paginação
+GET http://localhost:8080/categorias?page=0&size=5&sort=nome,asc
+
+### Buscar categoria por ID
+GET http://localhost:8080/categorias/1
+
+### Atualizar categoria
+PUT http://localhost:8080/categorias/1
+Content-Type: application/json
+
+{
+  "nome": "Pizzas Artesanais",
+  "descricao": "Pizzas artesanais tradicionais e especiais"
+}
+
+### Teste validação
+POST http://localhost:8080/categorias
+Content-Type: application/json
+
+{
+  "nome": "",
+  "descricao": "Categoria sem nome"
+}
+
+### Teste categoria duplicada
+POST http://localhost:8080/categorias
+Content-Type: application/json
+
+{
+  "nome": "Bebidas",
+  "descricao": "Categoria repetida"
+}
+
+### Buscar categoria inexistente
+GET http://localhost:8080/categorias/999
+
+### Deletar categoria
+DELETE http://localhost:8080/categorias/1

@@ -1,0 +1,22 @@
+### Buscar configurações da pizzaria
+GET http://localhost:8080/configuracoes
+
+###
+
+### Atualizar configurações da pizzaria
+PUT http://localhost:8080/configuracoes
+Content-Type: application/json
+
+{
+  "nomePizzaria": "Pizzly Delivery",
+  "whatsapp": "(74) 99999-9999",
+  "endereco": "Centro - Irecê/BA",
+  "taxaEntrega": 6.00,
+  "tempoEntrega": "30 - 45 min",
+  "aberta": true
+}
+
+###
+
+### Buscar novamente para confirmar atualização
+GET http://localhost:8080/configuracoes

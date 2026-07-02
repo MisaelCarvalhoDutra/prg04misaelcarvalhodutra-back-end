@@ -1,0 +1,70 @@
+
+### Listar clientes
+GET http://localhost:8080/clientes
+
+### Cadastrar notificação 1
+POST http://localhost:8080/notificacoes
+Content-Type: application/json
+
+{
+  "titulo": "Pedido confirmado",
+  "mensagem": "Seu pedido foi confirmado e já está sendo preparado.",
+  "clienteId": 1
+}
+
+### Cadastrar notificação 2
+POST http://localhost:8080/notificacoes
+Content-Type: application/json
+
+{
+  "titulo": "Pedido saiu para entrega",
+  "mensagem": "Seu pedido saiu para entrega e chegará em breve.",
+  "clienteId": 1
+}
+
+###
+GET http://localhost:8080/notificacoes/cliente/5
+
+### Listar notificações
+GET http://localhost:8080/notificacoes
+
+### Listar notificações com paginação
+GET http://localhost:8080/notificacoes?page=0&size=5&sort=dataEnvio,desc
+
+### Buscar notificação por ID
+GET http://localhost:8080/notificacoes/1
+
+### Buscar notificações de um cliente
+GET http://localhost:8080/notificacoes/cliente/1
+
+### Buscar notificações não lidas de um cliente
+GET http://localhost:8080/notificacoes/cliente/1/nao-lidas
+
+### Marcar notificação como lida
+PATCH http://localhost:8080/notificacoes/1/lida
+
+### Atualizar notificação
+PUT http://localhost:8080/notificacoes/1
+Content-Type: application/json
+
+{
+  "titulo": "Pedido atualizado",
+  "mensagem": "O status do seu pedido foi atualizado.",
+  "clienteId": 1
+}
+
+### Teste validação
+POST http://localhost:8080/notificacoes
+Content-Type: application/json
+
+{
+  "titulo": "",
+  "mensagem": "",
+  "clienteId": null
+}
+
+### Buscar notificação inexistente
+GET http://localhost:8080/notificacoes/999
+
+### Deletar notificação
+DELETE http://localhost:8080/notificacoes/1

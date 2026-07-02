@@ -1,0 +1,116 @@
+### OBS:
+### Antes de testar, confirme quais pedidos e endereços existem.
+### Um pedido só pode ter uma entrega.
+
+### Listar pedidos
+GET http://localhost:8080/pedidos
+
+### Listar endereços
+GET http://localhost:8080/enderecos
+
+### Cadastrar entrega com endereço
+POST http://localhost:8080/entregas
+Content-Type: application/json
+
+{
+  "formaRecebimento": "ENTREGA",
+  "horarioPreferido": "19:30",
+  "tempoEstimado": "40 minutos",
+  "observacao": "Entregar na portaria",
+  "pedidoId": 1,
+  "enderecoId": 1
+}
+
+### Cadastrar retirada no balcão
+POST http://localhost:8080/entregas
+Content-Type: application/json
+
+{
+  "formaRecebimento": "RETIRADA",
+  "horarioPreferido": "20:00",
+  "tempoEstimado": "25 minutos",
+  "observacao": "Cliente irá retirar no balcão",
+  "pedidoId": 2,
+  "enderecoId": null
+}
+
+### Listar entregas
+GET http://localhost:8080/entregas
+
+### Listar entregas com paginação
+GET http://localhost:8080/entregas?page=0&size=5&sort=id,asc
+
+### Buscar entrega por ID
+GET http://localhost:8080/entregas/1
+
+### Buscar entrega por pedido
+GET http://localhost:8080/entregas/pedido/1
+
+### Atualizar entrega
+PUT http://localhost:8080/entregas/3
+Content-Type: application/json
+
+{
+  "formaRecebimento": "ENTREGA",
+  "horarioPreferido": "20:30",
+  "tempoEstimado": "50 minutos",
+  "observacao": "Ligar ao chegar",
+  "pedidoId": 1,
+  "enderecoId": 1
+}
+
+
+### Teste validação
+POST http://localhost:8080/entregas
+Content-Type: application/json
+
+{
+  "formaRecebimento": null,
+  "pedidoId": null,
+  "enderecoId": null
+}
+
+### Teste pedido inexistente
+POST http://localhost:8080/entregas
+Content-Type: application/json
+
+{
+  "formaRecebimento": "ENTREGA",
+  "horarioPreferido": "19:00",
+  "tempoEstimado": "40 minutos",
+  "observacao": "Pedido inexistente",
+  "pedidoId": 999,
+  "enderecoId": 1
+}
+
+### Teste endereço inexistente
+POST http://localhost:8080/entregas
+Content-Type: application/json
+
+{
+  "formaRecebimento": "ENTREGA",
+  "horarioPreferido": "19:00",
+  "tempoEstimado": "40 minutos",
+  "observacao": "Endereço inexistente",
+  "pedidoId": 3,
+  "enderecoId": 999
+}
+
+### Teste entrega duplicada para o mesmo pedido
+POST http://localhost:8080/entregas
+Content-Type: application/json
+
+{
+  "formaRecebimento": "RETIRADA",
+  "horarioPreferido": "21:00",
+  "tempoEstimado": "30 minutos",
+  "observacao": "Duplicada",
+  "pedidoId": 1,
+  "enderecoId": null
+}
+
+### Buscar entrega inexistente
+GET http://localhost:8080/entregas/999
+
+### Deletar entrega
+DELETE http://localhost:8080/entregas/2

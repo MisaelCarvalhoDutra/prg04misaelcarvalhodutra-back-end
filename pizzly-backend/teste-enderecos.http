@@ -1,0 +1,99 @@
+### Cadastrar cliente antes de testar endereço
+POST http://localhost:8080/clientes
+Content-Type: application/json
+
+{
+  "nome": "Misael Dutra",
+  "email": "misael@gmail.com",
+  "telefone": "(74) 99999-9999",
+  "senha": "12345678",
+  "cpf": "12345678900"
+}
+
+### Cadastrar endereço 1
+POST http://localhost:8080/enderecos
+Content-Type: application/json
+
+{
+  "tipo": "CASA",
+  "cep": "44900-000",
+  "logradouro": "Rua das Flores",
+  "numero": "123",
+  "complemento": "",
+  "bairro": "Centro",
+  "cidade": "Irecê",
+  "uf": "BA",
+  "principal": true,
+  "clienteId": 1
+}
+
+### Cadastrar endereço 2
+POST http://localhost:8080/enderecos
+Content-Type: application/json
+
+{
+  "tipo": "TRABALHO",
+  "cep": "44900-000",
+  "logradouro": "Av. Central",
+  "numero": "250",
+  "complemento": "Próximo à praça",
+  "bairro": "Centro",
+  "cidade": "Irecê",
+  "uf": "BA",
+  "principal": false,
+  "clienteId": 1
+}
+
+### Listar endereços
+GET http://localhost:8080/enderecos
+
+### Listar endereços com paginação
+GET http://localhost:8080/enderecos?page=0&size=5&sort=cidade,asc
+
+### Buscar endereço por ID
+GET http://localhost:8080/enderecos/1
+
+### Buscar endereços de um cliente
+GET http://localhost:8080/enderecos/cliente/1
+
+### Definir endereço como principal
+PATCH http://localhost:8080/enderecos/1/principal
+
+### Atualizar endereço
+PUT http://localhost:8080/enderecos/1
+Content-Type: application/json
+
+{
+  "tipo": "CASA",
+  "cep": "44900-000",
+  "logradouro": "Rua das Palmeiras",
+  "numero": "456",
+  "complemento": "Casa amarela",
+  "bairro": "Centro",
+  "cidade": "Irecê",
+  "uf": "BA",
+  "principal": true,
+  "clienteId": 1
+}
+
+### Teste validação
+POST http://localhost:8080/enderecos
+Content-Type: application/json
+
+{
+  "tipo": null,
+  "cep": "",
+  "logradouro": "",
+  "numero": "",
+  "bairro": "",
+  "cidade": "",
+  "uf": "",
+  "principal": false,
+  "clienteId": null
+}
+
+### Buscar endereço inexistente
+GET http://localhost:8080/enderecos/999
+
+### Deletar endereço
+DELETE http://localhost:8080/enderecos/1

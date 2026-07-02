@@ -1,0 +1,132 @@
+### Cadastrar funcionário 1
+POST http://localhost:8080/funcionarios
+Content-Type: application/json
+
+{
+  "nome": "Carlos Almeida",
+  "email": "carlos@pizzly.com",
+  "telefone": "(74) 99999-1111",
+  "senha": "12345678",
+  "matricula": "FUNC001",
+  "perfil": "ADMINISTRADOR"
+}
+
+### Cadastrar funcionário 2
+POST http://localhost:8080/funcionarios
+Content-Type: application/json
+
+{
+  "nome": "Mariana Souza",
+  "email": "mariana@pizzly.com",
+  "telefone": "(74) 98888-2222",
+  "senha": "12345678",
+  "matricula": "FUNC002",
+  "perfil": "ATENDENTE"
+}
+
+### Criar funcionário atendente
+POST http://localhost:8080/funcionarios
+Content-Type: application/json
+
+{
+  "nome": "Atendente Teste",
+  "email": "atendente@pizzly.com",
+  "telefone": "74999999999",
+  "senha": "87654321",
+  "matricula": "FUNC002",
+  "perfil": "ATENDENTE"
+}
+
+### Criar gerente
+POST http://localhost:8080/funcionarios
+Content-Type: application/json
+
+{
+  "nome": "Gerente Teste",
+  "email": "gerente@pizzly.com",
+  "telefone": "74888888888",
+  "senha": "13243546",
+  "matricula": "FUNC003",
+  "perfil": "GERENTE"
+}
+
+### Criar entregador
+POST http://localhost:8080/funcionarios
+Content-Type: application/json
+
+{
+  "nome": "Entregador Teste",
+  "email": "entregador@pizzly.com",
+  "telefone": "74777777777",
+  "senha": "12345678",
+  "matricula": "FUNC004",
+  "perfil": "ENTREGADOR"
+}
+
+### Listar funcionários
+GET http://localhost:8080/funcionarios
+
+### Listar funcionários com paginação
+GET http://localhost:8080/funcionarios?page=0&size=5&sort=nome,asc
+
+### Buscar funcionário por ID
+GET http://localhost:8080/funcionarios/2
+
+
+### Atualizar funcionário
+PUT http://localhost:8080/funcionarios/2
+Content-Type: application/json
+
+{
+  "nome": "Carlos Almeida Silva",
+  "email": "carlos.silva@pizzly.com",
+  "telefone": "(74) 97777-1111",
+  "senha": "12345678",
+  "matricula": "FUNC001",
+  "perfil": "ADMINISTRADOR"
+}
+
+### Teste validação
+POST http://localhost:8080/funcionarios
+Content-Type: application/json
+
+{
+  "nome": "",
+  "email": "email-invalido",
+  "telefone": "",
+  "senha": "123",
+  "matricula": "",
+  "perfil": null
+}
+
+### Teste email duplicado
+POST http://localhost:8080/funcionarios
+Content-Type: application/json
+
+{
+  "nome": "João Lima",
+  "email": "mariana@pizzly.com",
+  "telefone": "(74) 96666-3333",
+  "senha": "12345678",
+  "matricula": "FUNC003",
+  "perfil": "ENTREGADOR"
+}
+
+### Teste matrícula duplicada
+POST http://localhost:8080/funcionarios
+Content-Type: application/json
+
+{
+  "nome": "Pedro Santos",
+  "email": "pedro@pizzly.com",
+  "telefone": "(74) 95555-4444",
+  "senha": "12345678",
+  "matricula": "FUNC002",
+  "perfil": "ENTREGADOR"
+}
+
+### Buscar funcionário inexistente
+GET http://localhost:8080/funcionarios/999
+
+### Deletar funcionário
+DELETE http://localhost:8080/funcionarios/9

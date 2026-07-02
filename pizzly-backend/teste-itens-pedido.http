@@ -1,0 +1,64 @@
+
+### Listar pedidos
+GET http://localhost:8080/pedidos
+
+### Listar produtos
+GET http://localhost:8080/produtos
+
+### Cadastrar item do pedido 1
+POST http://localhost:8080/itens-pedido
+Content-Type: application/json
+
+{
+  "quantidade": 2,
+  "pedidoId": 1,
+  "produtoId": 2
+}
+
+### Cadastrar item do pedido 2
+POST http://localhost:8080/itens-pedido
+Content-Type: application/json
+
+{
+  "quantidade": 1,
+  "pedidoId": 1,
+  "produtoId": 2
+}
+
+### Listar itens de pedido
+GET http://localhost:8080/itens-pedido
+
+### Listar itens com paginação
+GET http://localhost:8080/itens-pedido?page=0&size=5&sort=id,asc
+
+### Buscar item por ID
+GET http://localhost:8080/itens-pedido/1
+
+### Buscar itens de um pedido
+GET http://localhost:8080/itens-pedido/pedido/1
+
+### Atualizar item do pedido
+PUT http://localhost:8080/itens-pedido/1
+Content-Type: application/json
+
+{
+  "quantidade": 3,
+  "pedidoId": 1,
+  "produtoId": 2
+}
+
+### Teste validação
+POST http://localhost:8080/itens-pedido
+Content-Type: application/json
+
+{
+  "quantidade": 0,
+  "pedidoId": null,
+  "produtoId": null
+}
+
+### Buscar item inexistente
+GET http://localhost:8080/itens-pedido/999
+
+### Deletar item
+DELETE http://localhost:8080/itens-pedido/3

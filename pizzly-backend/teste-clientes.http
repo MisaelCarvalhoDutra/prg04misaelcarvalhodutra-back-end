@@ -1,0 +1,74 @@
+### Cadastrar cliente 1
+POST http://localhost:8080/clientes
+Content-Type: application/json
+
+{
+  "nome": "Misael Dutra",
+  "email": "misael@gmail.com",
+  "telefone": "(74) 99999-9999",
+  "senha": "12345678",
+  "cpf": "12345678900"
+}
+
+### Cadastrar cliente 2
+POST http://localhost:8080/clientes
+Content-Type: application/json
+
+{
+  "nome": "Ana Souza",
+  "email": "ana@gmail.com",
+  "telefone": "(74) 98888-8888",
+  "senha": "87654321",
+  "cpf": "98765432100"
+}
+
+### Listar clientes
+GET http://localhost:8080/clientes
+
+### Listar clientes com paginação
+GET http://localhost:8080/clientes?page=0&size=5&sort=nome,asc
+
+### Buscar cliente por ID
+GET http://localhost:8080/clientes/1
+
+### Buscar cliente inexistente
+GET http://localhost:8080/clientes/999
+
+### Atualizar cliente
+PUT http://localhost:8080/clientes/1
+Content-Type: application/json
+
+{
+  "nome": "Misael Carvalho Dutra",
+  "email": "misaelnovo@gmail.com",
+  "telefone": "(74) 97777-7777",
+  "senha": "12345678",
+  "cpf": "12345678900"
+}
+
+### Teste validação
+POST http://localhost:8080/clientes
+Content-Type: application/json
+
+{
+  "nome": "",
+  "email": "email-invalido",
+  "telefone": "",
+  "senha": "123",
+  "cpf": ""
+}
+
+### Teste email duplicado
+POST http://localhost:8080/clientes
+Content-Type: application/json
+
+{
+  "nome": "Carlos Lima",
+  "email": "misael@gmail.com",
+  "telefone": "(74) 96666-6666",
+  "senha": "12345678",
+  "cpf": "11122233344"
+}
+
+### Deletar cliente
+DELETE http://localhost:8080/clientes/1

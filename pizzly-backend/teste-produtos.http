@@ -1,0 +1,91 @@
+### Cadastrar categoria antes de testar produto
+POST http://localhost:8080/categorias
+Content-Type: application/json
+
+{
+  "nome": "Pizzas",
+  "descricao": "Pizzas tradicionais e especiais"
+}
+
+### Cadastrar produto 1
+POST http://localhost:8080/produtos
+Content-Type: application/json
+
+{
+  "nome": "Pizza Calabresa",
+  "descricao": "Pizza com calabresa, cebola e mussarela",
+  "preco": 45.90,
+  "imagem": "pizza-calabresa.png",
+  "disponivel": true,
+  "categoriaId": 1
+}
+
+### Cadastrar produto 2
+POST http://localhost:8080/produtos
+Content-Type: application/json
+
+{
+  "nome": "Pizza Portuguesa",
+  "descricao": "Pizza com presunto, ovo, cebola, ervilha e mussarela",
+  "preco": 49.90,
+  "imagem": "pizza-portuguesa.png",
+  "disponivel": true,
+  "categoriaId": 1
+}
+
+### Listar produtos
+GET http://localhost:8080/produtos
+
+### Listar produtos com paginação
+GET http://localhost:8080/produtos?page=0&size=5&sort=nome,asc
+
+### Buscar produto por ID
+GET http://localhost:8080/produtos/1
+
+### Buscar produtos por categoria
+GET http://localhost:8080/produtos/categoria/1
+
+### Atualizar produto
+PUT http://localhost:8080/produtos/1
+Content-Type: application/json
+
+{
+  "nome": "Pizza Calabresa Especial",
+  "descricao": "Pizza com calabresa, cebola roxa, mussarela e orégano",
+  "preco": 52.90,
+  "imagem": "pizza-calabresa-especial.png",
+  "disponivel": true,
+  "categoriaId": 1
+}
+
+### Teste validação
+POST http://localhost:8080/produtos
+Content-Type: application/json
+
+{
+  "nome": "",
+  "descricao": "Produto sem nome",
+  "preco": null,
+  "imagem": "",
+  "disponivel": true,
+  "categoriaId": null
+}
+
+### Teste produto duplicado
+POST http://localhost:8080/produtos
+Content-Type: application/json
+
+{
+  "nome": "Pizza Portuguesa",
+  "descricao": "Produto repetido",
+  "preco": 49.90,
+  "imagem": "pizza-portuguesa.png",
+  "disponivel": true,
+  "categoriaId": 1
+}
+
+### Buscar produto inexistente
+GET http://localhost:8080/produtos/999
+
+### Deletar produto
+DELETE http://localhost:8080/produtos/1
