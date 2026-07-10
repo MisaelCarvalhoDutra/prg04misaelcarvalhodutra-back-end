@@ -1,5 +1,6 @@
 package br.com.ifba.prg04pizzly.pagamentos.entity;
 
+import br.com.ifba.prg04pizzly.infrastructure.entity.PersistenceEntity;
 import br.com.ifba.prg04pizzly.pagamentos.entity.enums.FormaPagamento;
 import br.com.ifba.prg04pizzly.pagamentos.entity.enums.StatusPagamento;
 import br.com.ifba.prg04pizzly.pedidos.entity.Pedido;
@@ -8,14 +9,10 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
-//representa o pagamento de um pedido
+//Representa o pagamento de um pedido
 @Entity
 @Data
-public class Pagamento {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Pagamento extends PersistenceEntity {
 
     @Enumerated(EnumType.STRING)
     // armazena a forma de pagamento como texto no banco
