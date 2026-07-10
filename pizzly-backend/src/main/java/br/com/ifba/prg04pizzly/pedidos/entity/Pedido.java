@@ -1,5 +1,6 @@
 package br.com.ifba.prg04pizzly.pedidos.entity;
 
+import br.com.ifba.prg04pizzly.entregas.entity.enums.FormaRecebimento;
 import br.com.ifba.prg04pizzly.infrastructure.entity.PersistenceEntity;
 import br.com.ifba.prg04pizzly.pedidos.entity.enums.StatusPedido;
 import br.com.ifba.prg04pizzly.usuarios.entity.Cliente;
@@ -28,7 +29,8 @@ public class Pedido extends PersistenceEntity {
     private String observacao;
 
     // define se o pedido será entregue ou retirado no balcão
-    private String formaRecebimento;
+    @Enumerated(EnumType.STRING)
+    private FormaRecebimento formaRecebimento;
 
     // armazena o id do endereço escolhido quando a forma de recebimento for entrega
     private Long enderecoId;
