@@ -1,5 +1,6 @@
 package br.com.ifba.prg04pizzly.configuracoes.entity;
 
+import br.com.ifba.prg04pizzly.infrastructure.entity.PersistenceEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,11 +12,7 @@ import java.math.BigDecimal;
 //obs: alteradas apenas pelo administrador na aba admin la no front
 @Entity
 @Data
-public class Configuracao {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Configuracao extends PersistenceEntity {
 
     private String nomePizzaria;
 

@@ -1,5 +1,6 @@
 package br.com.ifba.prg04pizzly.verificacaoemail.entity;
 
+import br.com.ifba.prg04pizzly.infrastructure.entity.PersistenceEntity;
 import br.com.ifba.prg04pizzly.verificacaoemail.entity.enums.TipoVerificacaoEmail;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -10,11 +11,7 @@ import java.time.LocalDateTime;
 // cadastro de clientes ou recuperação de senha
 @Entity
 @Data
-public class CodigoVerificacao {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class CodigoVerificacao extends PersistenceEntity {
 
     // e-mail que receberá o código de verificação
     @Column(nullable = false)

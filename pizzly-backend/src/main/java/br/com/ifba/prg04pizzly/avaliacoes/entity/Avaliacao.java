@@ -1,5 +1,6 @@
 package br.com.ifba.prg04pizzly.avaliacoes.entity;
 
+import br.com.ifba.prg04pizzly.infrastructure.entity.PersistenceEntity;
 import br.com.ifba.prg04pizzly.pedidos.entity.Pedido;
 import br.com.ifba.prg04pizzly.usuarios.entity.Cliente;
 import jakarta.persistence.*;
@@ -10,11 +11,7 @@ import java.time.LocalDateTime;
 //representa uma avaliação feita por um cliente após um pedido
 @Entity
 @Data
-public class Avaliacao {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Avaliacao extends PersistenceEntity {
 
     private Integer nota;
 

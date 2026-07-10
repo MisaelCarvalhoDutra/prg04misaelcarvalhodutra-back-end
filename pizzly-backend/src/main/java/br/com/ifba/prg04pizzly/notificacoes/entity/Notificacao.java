@@ -1,5 +1,6 @@
 package br.com.ifba.prg04pizzly.notificacoes.entity;
 
+import br.com.ifba.prg04pizzly.infrastructure.entity.PersistenceEntity;
 import br.com.ifba.prg04pizzly.usuarios.entity.Cliente;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -9,11 +10,7 @@ import java.time.LocalDateTime;
 //representa uma notificação recebida por um cliente
 @Entity
 @Data
-public class Notificacao {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Notificacao extends PersistenceEntity {
 
     private String titulo;
 

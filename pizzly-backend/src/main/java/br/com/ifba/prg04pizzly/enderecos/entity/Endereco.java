@@ -1,6 +1,7 @@
 package br.com.ifba.prg04pizzly.enderecos.entity;
 
 import br.com.ifba.prg04pizzly.enderecos.entity.enums.TipoEndereco;
+import br.com.ifba.prg04pizzly.infrastructure.entity.PersistenceEntity;
 import br.com.ifba.prg04pizzly.usuarios.entity.Cliente;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,11 +9,7 @@ import lombok.Data;
 //representa um endereço de entrega cadastrado por um cliente.
 @Entity
 @Data
-public class Endereco {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Endereco extends PersistenceEntity {
 
     @Enumerated(EnumType.STRING)
     private TipoEndereco tipo; //Casa, Trabalho ou Outro

@@ -1,5 +1,6 @@
 package br.com.ifba.prg04pizzly.logs.entity;
 
+import br.com.ifba.prg04pizzly.infrastructure.entity.PersistenceEntity;
 import br.com.ifba.prg04pizzly.usuarios.entity.Funcionario;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -10,11 +11,7 @@ import java.time.LocalDateTime;
 //Permite rastrear alterações importantes no sistema
 @Entity
 @Data
-public class LogAuditoria {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class LogAuditoria extends PersistenceEntity {
 
     private String acao;
 
