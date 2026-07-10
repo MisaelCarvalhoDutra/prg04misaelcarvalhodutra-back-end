@@ -7,8 +7,8 @@ import jakarta.persistence.Enumerated;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-//representa um funcionário do sistema.
-//Pode assumir diferentes perfis de acesso, como por exemplo: administrador, atendente ou entregador.
+//representa um funcionário do sistema
+//Pode assumir diferentes perfis de acesso, como por exemplo: Administrador, Atendente ou Entregador
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -8,7 +8,7 @@ import lombok.Data;
 //representa um endereço de entrega cadastrado por um cliente.
 @Entity
 @Data
-public class  Endereco {
+public class Endereco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

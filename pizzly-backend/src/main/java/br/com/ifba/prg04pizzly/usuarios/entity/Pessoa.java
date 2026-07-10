@@ -1,21 +1,17 @@
 package br.com.ifba.prg04pizzly.usuarios.entity;
 
+import br.com.ifba.prg04pizzly.infrastructure.entity.PersistenceEntity;
 import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 //Classe base com os dados comuns de qualquer pessoa do sistema.
 //Não gera tabela própria no banco.
 @MappedSuperclass /*classe q serve apenas para compartilhar atributos (abstrata)*/
 @Data
-public abstract class Pessoa {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@EqualsAndHashCode(callSuper = true) //inclui os atributos herdados da superclasse (PersistenceEntity) na comparação
+public abstract class Pessoa extends PersistenceEntity {
 
     private String nome;
 

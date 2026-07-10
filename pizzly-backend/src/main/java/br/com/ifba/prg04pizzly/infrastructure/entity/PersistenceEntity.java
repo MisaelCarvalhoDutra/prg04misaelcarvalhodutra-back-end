@@ -10,7 +10,7 @@ import lombok.Setter;
 //classe base para reaproveitar o campo id nas entidades do sistema
 @Getter
 @Setter
-@MappedSuperclass
+@MappedSuperclass //possui @MappedSuperclass, portanto não será criada uma tabela, apenas para reaproveitamento
 public abstract class PersistenceEntity {
 
     @Id

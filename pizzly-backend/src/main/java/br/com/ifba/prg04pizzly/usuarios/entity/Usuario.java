@@ -8,18 +8,18 @@ import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 
-//Classe base para os usuários do sistema.
+//Classe base para os usuários do sistema
 //tem os dados de autenticação e controle.
 @Entity
 //cada classe filha possui sua propria tabela
 @Inheritance(strategy = InheritanceType.JOINED)  //id compartilhado (herança relacional)
 @Data
-@EqualsAndHashCode(callSuper = true) //inclui os atributos herdados da super classe na comparação (Pessoa)
+@EqualsAndHashCode(callSuper = true) //inclui os atributos herdados da superclasse na comparação (Pessoa)
 public abstract class Usuario extends Pessoa {
 
     private String senha;
 
     private LocalDateTime dataCadastro;
 
-    private Boolean ativo; //pra bloquear login
+    private Boolean ativo; //controla se o usuário pode realizar login
 }
