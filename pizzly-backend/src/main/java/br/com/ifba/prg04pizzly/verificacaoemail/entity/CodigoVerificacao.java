@@ -17,7 +17,7 @@ public class CodigoVerificacao extends PersistenceEntity {
     @Column(nullable = false)
     private String email;
 
-    // código numérico enviado ao usuário (6 digitos)
+    // armazena o código numérico do cadastro ou o token da recuperação de senha
     @Column(nullable = false)
     private String codigo;
 

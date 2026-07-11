@@ -19,8 +19,8 @@ public interface VerificacaoEmailIController {
             ValidarCadastroDTO dto
     );
 
-    // envia código para recuperação de senha
-    ResponseEntity<Void> enviarCodigoRecuperacaoSenha(
+    // Envia link para recuperação de senha.
+    ResponseEntity<Void> enviarLinkRecuperacaoSenha(
             EnviarCodigoDTO dto
     );
 

@@ -22,7 +22,7 @@ Content-Type: application/json
   }
 }
 
-### Enviar código para recuperação de senha
+### Enviar link para recuperação de senha
 POST http://localhost:8080/verificacao-email/senha/enviar
 Content-Type: application/json
 
@@ -30,12 +30,11 @@ Content-Type: application/json
   "email": "20242ireads0004@ifba.edu.br"
 }
 
-### Redefinir senha com código
+### Redefinir senha com token
 POST http://localhost:8080/verificacao-email/senha/redefinir
 Content-Type: application/json
 
 {
-  "email": "20242ireads0004@ifba.edu.br",
-  "codigo": "712365",
+  "token": "2e5f4b1d-18d4-43b7-9ff6-80aa9de5b0ad",
   "novaSenha": "novaSenha123"
 }

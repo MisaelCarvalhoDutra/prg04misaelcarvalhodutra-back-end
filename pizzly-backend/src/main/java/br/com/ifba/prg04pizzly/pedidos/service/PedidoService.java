@@ -198,18 +198,20 @@ public class PedidoService implements PedidoIService {
         return subtotal.add(taxaEntrega);
     }
 
-    //define o título da notificação de acordo com o novo status
+    //Define o título da notificação de acordo com o novo status.
     private String gerarTituloNotificacao(StatusPedido status) {
         return switch (status) {
             case CONFIRMADO -> "Pedido confirmado";
             case PREPARANDO -> "Pedido em preparo";
             case SAIU_PARA_ENTREGA -> "Pedido saiu para entrega";
+            case PRONTO_PARA_RETIRADA -> "Pedido pronto para retirada";
             case ENTREGUE -> "Pedido entregue";
+            case RETIRADO -> "Pedido retirado";
             case CANCELADO -> "Pedido cancelado";
         };
     }
 
-    //define a mensagem da notificação de acordo com o novo status
+    //Define a mensagem da notificação de acordo com o novo status.
     private String gerarMensagemNotificacao(
             Long pedidoId,
             StatusPedido status) {
@@ -224,11 +226,21 @@ public class PedidoService implements PedidoIService {
             case SAIU_PARA_ENTREGA ->
                     "Seu pedido #" + pedidoId + " saiu para entrega.";
 
+            case PRONTO_PARA_RETIRADA ->
+                    "Seu pedido #" + pedidoId
+                            + " está pronto para retirada no balcão.";
+
             case ENTREGUE ->
-                    "Seu pedido #" + pedidoId + " foi entregue. Bom apetite!";
+                    "Seu pedido #" + pedidoId
+                            + " foi entregue. Bom apetite!";
+
+            case RETIRADO ->
+                    "Seu pedido #" + pedidoId
+                            + " foi retirado com sucesso. Bom apetite!";
 
             case CANCELADO ->
-                    "Seu pedido #" + pedidoId + " foi cancelado. Entre em contato com a pizzaria para mais informações.";
+                    "Seu pedido #" + pedidoId
+                            + " foi cancelado. Entre em contato com a pizzaria para mais informações.";
         };
     }
 

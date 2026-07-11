@@ -6,13 +6,23 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-//Repositório responsável pelas operações de persistência dos códigos de verificação
+// Repositório responsável pelas operações de persistência
+// dos códigos e tokens de verificação.
 public interface CodigoVerificacaoRepository
         extends JpaRepository<CodigoVerificacao, Long> {
 
-    // busca o código mais recente, ainda não utilizado, para o e-mail e tipo informados
-    Optional<CodigoVerificacao> findTopByEmailAndTipoAndUsadoFalseOrderByIdDesc(
+    // Busca o código mais recente ainda não utilizado
+    // para o e-mail e tipo informados.
+    Optional<CodigoVerificacao>
+    findTopByEmailAndTipoAndUsadoFalseOrderByIdDesc(
             String email,
+            TipoVerificacaoEmail tipo
+    );
+
+    // Busca um token de recuperação ainda não utilizado.
+    Optional<CodigoVerificacao>
+    findByCodigoAndTipoAndUsadoFalse(
+            String codigo,
             TipoVerificacaoEmail tipo
     );
 }

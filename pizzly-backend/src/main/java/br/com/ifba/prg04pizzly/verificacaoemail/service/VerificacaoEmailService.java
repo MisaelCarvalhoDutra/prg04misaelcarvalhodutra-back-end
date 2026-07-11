@@ -14,6 +14,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.UUID;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -24,7 +25,8 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class VerificacaoEmailService implements VerificacaoEmailIService {
 
-    private static final int TEMPO_EXPIRACAO_MINUTOS = 1;//ou seja, 1 minuto
+    private static final int TEMPO_EXPIRACAO_CODIGO_MINUTOS = 10;
+    private static final int TEMPO_EXPIRACAO_TOKEN_MINUTOS = 15;
 
     // gerador mais seguro para códigos temporários
     private static final SecureRandom RANDOM = new SecureRandom();
@@ -65,49 +67,107 @@ public class VerificacaoEmailService implements VerificacaoEmailIService {
         return clienteService.save(clienteDTO);
     }
 
-    //envia código para recuperação de senha
+    // Envia um link temporário para recuperação de senha.
     @Override
     @Transactional
-    public void enviarCodigoRecuperacaoSenha(String email) {
+    public void enviarLinkRecuperacaoSenha(String email) {
 
-        // verifica se existe usuário cadastrado com o e-mail informado
+        // Verifica se existe usuário cadastrado com o e-mail informado.
         usuarioRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new BusinessException("E-mail não encontrado")); //exceção caso n encontre
-
-        enviarCodigo(
-                email,
-                TipoVerificacaoEmail.RECUPERACAO_SENHA,
-                "Código para redefinir senha - Pizzly"
-        );
-    }
-
-    //redefine a senha do usuário após validar o código
-    @Override
-    @Transactional
-    public void redefinirSenha(
-            String email,
-            String codigo,
-            String novaSenha
-    ) {
-        validarCodigo(
-                email,
-                codigo,
-                TipoVerificacaoEmail.RECUPERACAO_SENHA
-        );
-
-        // busca o usuário para atualizar a senha
-        Usuario usuario = usuarioRepository.findByEmail(email)
                 .orElseThrow(() ->
                         new BusinessException("E-mail não encontrado"));
 
-        // atualiza a senha do usuário
+        // Gera um token único e difícil de adivinhar.
+        String token = UUID.randomUUID().toString();
+
+        CodigoVerificacao tokenRecuperacao = new CodigoVerificacao();
+
+        tokenRecuperacao.setEmail(email);
+        tokenRecuperacao.setCodigo(token);
+        tokenRecuperacao.setTipo(
+                TipoVerificacaoEmail.RECUPERACAO_SENHA
+        );
+        tokenRecuperacao.setExpiraEm(
+                LocalDateTime.now()
+                        .plusMinutes(TEMPO_EXPIRACAO_TOKEN_MINUTOS)
+        );
+        tokenRecuperacao.setUsado(false);
+
+        codigoRepository.save(tokenRecuperacao);
+
+        String linkRecuperacao =
+                "http://localhost:5173/nova-senha?token=" + token;
+
+        SimpleMailMessage mensagem = new SimpleMailMessage();
+
+        mensagem.setTo(email);
+        mensagem.setSubject("Redefinição de senha - Pizzly");
+        mensagem.setText(
+                "Olá!\n\n"
+                        + "Recebemos uma solicitação para redefinir "
+                        + "a senha da sua conta Pizzly.\n\n"
+                        + "Acesse o link abaixo para criar uma nova senha:\n\n"
+                        + linkRecuperacao
+                        + "\n\nPor segurança, este link expira em "
+                        + TEMPO_EXPIRACAO_TOKEN_MINUTOS
+                        + " minutos.\n\n"
+                        + "Se você não solicitou a redefinição de senha, "
+                        + "ignore este e-mail.\n\n"
+                        + "Atenciosamente,\n"
+                        + "Equipe Pizzly"
+        );
+
+        mailSender.send(mensagem);
+    }
+
+    // Redefine a senha após validar o token recebido pelo link
+    @Override
+    @Transactional
+    public void redefinirSenha(
+            String token,
+            String novaSenha
+    ) {
+
+        CodigoVerificacao tokenSalvo =
+                codigoRepository
+                        .findByCodigoAndTipoAndUsadoFalse(
+                                token,
+                                TipoVerificacaoEmail.RECUPERACAO_SENHA
+                        )
+                        .orElseThrow(() ->
+                                new BusinessException(
+                                        "Link de recuperação inválido"
+                                ));
+
+        // Verifica se o prazo do token terminou.
+        if (LocalDateTime.now().isAfter(tokenSalvo.getExpiraEm())) {
+            throw new BusinessException(
+                    "O link de recuperação expirou"
+            );
+        }
+
+        // Localiza o usuário pelo e-mail associado ao token.
+        Usuario usuario = usuarioRepository
+                .findByEmail(tokenSalvo.getEmail())
+                .orElseThrow(() ->
+                        new BusinessException(
+                                "Usuário não encontrado"
+                        ));
+
+        // Atualiza a senha.
         usuario.setSenha(novaSenha);
 
         usuarioRepository.save(usuario);
+
+        // Invalida o token para impedir um segundo uso.
+        tokenSalvo.setUsado(true);
+
+        codigoRepository.save(tokenSalvo);
     }
 
     //gera um código aleatório, salva no banco e realiza o envio do e-mail
+    // Gera um código numérico para validação do cadastro,
+// salva no banco e envia ao usuário por e-mail.
     private void enviarCodigo(
             String email,
             TipoVerificacaoEmail tipo,
@@ -123,7 +183,8 @@ public class VerificacaoEmailService implements VerificacaoEmailIService {
         codigoVerificacao.setCodigo(codigo);
         codigoVerificacao.setTipo(tipo);
         codigoVerificacao.setExpiraEm(
-                LocalDateTime.now().plusMinutes(TEMPO_EXPIRACAO_MINUTOS)
+                LocalDateTime.now()
+                        .plusMinutes(TEMPO_EXPIRACAO_CODIGO_MINUTOS)
         );
         codigoVerificacao.setUsado(false);
 
@@ -135,16 +196,15 @@ public class VerificacaoEmailService implements VerificacaoEmailIService {
         mensagem.setTo(email);
         mensagem.setSubject(assunto);
         mensagem.setText(
-                "Olá!\n\n" +
-                        "Seu código de verificação é:\n\n" +
-                        codigo +
-                        "\n\nEste código expira em " +
-                        TEMPO_EXPIRACAO_MINUTOS +
-                        " minuto.\n\n" +
-                        "Equipe Pizzly"
+                "Olá!\n\n"
+                        + "Seu código de verificação é:\n\n"
+                        + codigo
+                        + "\n\nEste código expira em "
+                        + TEMPO_EXPIRACAO_CODIGO_MINUTOS
+                        + " minutos.\n\n"
+                        + "Equipe Pizzly"
         );
 
-        // envia o e-mail para o usuário
         mailSender.send(mensagem);
     }
 
