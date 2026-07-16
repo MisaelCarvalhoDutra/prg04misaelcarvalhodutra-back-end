@@ -1,9 +1,9 @@
 package br.com.ifba.prg04pizzly.email;
 
 import com.resend.Resend;
+import com.resend.core.exception.ResendException;
 import com.resend.services.emails.model.CreateEmailOptions;
 import com.resend.services.emails.model.CreateEmailResponse;
-import com.resend.core.exception.ResendException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

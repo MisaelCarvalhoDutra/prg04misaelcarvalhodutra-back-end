@@ -13,8 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
-import br.com.ifba.prg04pizzly.email.ResendEmailService;
 import org.springframework.beans.factory.annotation.Value;
+import br.com.ifba.prg04pizzly.email.ResendEmailService;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -29,10 +29,10 @@ public class VerificacaoEmailService implements VerificacaoEmailIService {
     private static final int TEMPO_EXPIRACAO_TOKEN_MINUTOS = 15;
     private static final SecureRandom RANDOM = new SecureRandom();
 
-    // gerador mais seguro para códigos temporários
-
     // responsável por enviar e-mails
+    // responsável por enviar e-mails pela API do Resend
     private final ResendEmailService resendEmailService;
+
 
     @Value("${app.frontend.url}")
     private String frontendUrl;
