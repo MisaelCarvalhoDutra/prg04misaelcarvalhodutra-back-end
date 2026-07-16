@@ -10,11 +10,11 @@ import br.com.ifba.prg04pizzly.verificacaoemail.entity.CodigoVerificacao;
 import br.com.ifba.prg04pizzly.verificacaoemail.entity.enums.TipoVerificacaoEmail;
 import br.com.ifba.prg04pizzly.verificacaoemail.repository.CodigoVerificacaoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
+import br.com.ifba.prg04pizzly.email.ResendEmailService;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -27,12 +27,15 @@ public class VerificacaoEmailService implements VerificacaoEmailIService {
 
     private static final int TEMPO_EXPIRACAO_CODIGO_MINUTOS = 10;
     private static final int TEMPO_EXPIRACAO_TOKEN_MINUTOS = 15;
-
-    // gerador mais seguro para códigos temporários
     private static final SecureRandom RANDOM = new SecureRandom();
 
+    // gerador mais seguro para códigos temporários
+
     // responsável por enviar e-mails
-    private final JavaMailSender mailSender;
+    private final ResendEmailService resendEmailService;
+
+    @Value("${app.frontend.url}")
+    private String frontendUrl;
 
     // repositório responsável pela persistência dos códigos de verificação
     private final CodigoVerificacaoRepository codigoRepository;
@@ -96,13 +99,9 @@ public class VerificacaoEmailService implements VerificacaoEmailIService {
         codigoRepository.save(tokenRecuperacao);
 
         String linkRecuperacao =
-                "http://localhost:5173/nova-senha?token=" + token;
+                frontendUrl + "/nova-senha?token=" + token;
 
-        SimpleMailMessage mensagem = new SimpleMailMessage();
-
-        mensagem.setTo(email);
-        mensagem.setSubject("Redefinição de senha - Pizzly");
-        mensagem.setText(
+        String conteudoEmail =
                 "Olá!\n\n"
                         + "Recebemos uma solicitação para redefinir "
                         + "a senha da sua conta Pizzly.\n\n"
@@ -114,10 +113,13 @@ public class VerificacaoEmailService implements VerificacaoEmailIService {
                         + "Se você não solicitou a redefinição de senha, "
                         + "ignore este e-mail.\n\n"
                         + "Atenciosamente,\n"
-                        + "Equipe Pizzly"
-        );
+                        + "Equipe Pizzly";
 
-        mailSender.send(mensagem);
+        resendEmailService.enviarEmail(
+                email,
+                "Redefinição de senha - Pizzly",
+                conteudoEmail
+        );
     }
 
     // Redefine a senha após validar o token recebido pelo link
@@ -191,21 +193,20 @@ public class VerificacaoEmailService implements VerificacaoEmailIService {
         codigoRepository.save(codigoVerificacao);
 
         // monta a mensagem de e-mail com o código de verificação
-        SimpleMailMessage mensagem = new SimpleMailMessage();
-
-        mensagem.setTo(email);
-        mensagem.setSubject(assunto);
-        mensagem.setText(
+        String conteudoEmail =
                 "Olá!\n\n"
                         + "Seu código de verificação é:\n\n"
                         + codigo
                         + "\n\nEste código expira em "
                         + TEMPO_EXPIRACAO_CODIGO_MINUTOS
                         + " minutos.\n\n"
-                        + "Equipe Pizzly"
-        );
+                        + "Equipe Pizzly";
 
-        mailSender.send(mensagem);
+        resendEmailService.enviarEmail(
+                email,
+                assunto,
+                conteudoEmail
+        );
     }
 
     //verifica se o código existe, ainda não expirou e corresponde ao informado pelo usuário
