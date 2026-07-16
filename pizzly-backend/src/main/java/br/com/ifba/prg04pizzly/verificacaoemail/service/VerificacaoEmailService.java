@@ -98,25 +98,18 @@ public class VerificacaoEmailService implements VerificacaoEmailIService {
 
         codigoRepository.save(tokenRecuperacao);
 
-        String linkRecuperacao =
-                frontendUrl + "/nova-senha?token=" + token;
-
         String conteudoEmail =
                 "Olá!\n\n"
-                        + "Recebemos uma solicitação para redefinir "
-                        + "a senha da sua conta Pizzly.\n\n"
-                        + "Use o token abaixo na tela de redefinição de senha:\n\n"
+                        + "Seu token de recuperação é:\n\n"
                         + token
                         + "\n\nEste token expira em "
                         + TEMPO_EXPIRACAO_TOKEN_MINUTOS
                         + " minutos.\n\n"
-                        + "Se você não solicitou esta alteração, "
-                        + "ignore este e-mail.\n\n"
                         + "Equipe Pizzly";
 
         resendEmailService.enviarEmail(
                 email,
-                "Redefinição de senha - Pizzly",
+                "Token de verificação - Pizzly",
                 conteudoEmail
         );
     }
