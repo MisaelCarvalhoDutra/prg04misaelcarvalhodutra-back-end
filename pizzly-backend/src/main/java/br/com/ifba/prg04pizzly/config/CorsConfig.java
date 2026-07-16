@@ -26,8 +26,10 @@ public class CorsConfig {
                 registry.addMapping("/**")
 
                         // endereço do frontend durante o desenvolvimento
-                        .allowedOrigins("http://localhost:5173") //ou seja, permite apenas esse endereço faça requisições
-
+                        .allowedOrigins(
+                                "http://localhost:5173",
+                                "https://prg04misaelcarvalhodutra-front-end.vercel.app"
+                        )
                         // métodos HTTP permitidos
                         .allowedMethods(
                                 "GET",
