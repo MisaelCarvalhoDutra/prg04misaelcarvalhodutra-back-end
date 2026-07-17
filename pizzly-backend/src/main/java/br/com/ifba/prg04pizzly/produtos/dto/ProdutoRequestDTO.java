@@ -3,6 +3,7 @@ package br.com.ifba.prg04pizzly.produtos.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
@@ -18,6 +19,7 @@ public class ProdutoRequestDTO {
     @NotNull(message = "o preço é obrigatório")
     private BigDecimal preco;
 
+    @Size(max = 1000, message = "a URL da imagem deve possuir no máximo 1000 caracteres")
     private String imagem;
 
     private Boolean disponivel;

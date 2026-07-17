@@ -18,7 +18,8 @@ public class Produto extends PersistenceEntity {
 
     private BigDecimal preco;
 
-    // caminho ou URL da imagem exibida no cardápio
+    // URL da imagem exibida no cardápio
+    @Column(length = 1000)
     private String imagem;
 
     private Boolean disponivel;
